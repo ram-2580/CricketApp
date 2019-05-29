@@ -2,7 +2,7 @@ module.exports = (db, Sequelize) => {
     return db.define('profile', {
         profilePic: {
             type: Sequelize.STRING,
-            defaultValue: 'default-pic.jpg'
+            defaultValue: '/uploads/profile-pics/default-image.png'
         },
         runScored: {
             type: Sequelize.INTEGER,

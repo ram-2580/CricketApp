@@ -15,7 +15,7 @@ router.get('/signin', controller.signin);
 
 
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: 'dashboard',
+    successRedirect: '/',
 
     failureRedirect: 'signup',
     failureFlash: true
@@ -24,7 +24,7 @@ router.post('/signup', passport.authenticate('local-signup', {
 ));
 
 router.post('/signin', passport.authenticate('local-signin', {
-    successRedirect: 'dashboard',
+    successRedirect: '/',
 
     failureRedirect: 'signin',
     failureFlash: true
