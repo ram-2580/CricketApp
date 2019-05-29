@@ -1,0 +1,41 @@
+
+:root {
+    --primary: #007bff;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.bg-dark {
+    background-color: black !important;
+}
+
+.navbar {
+    padding: 0rem 3rem;
+}
+
+.navbar .nav-item {
+    padding: .5rem 0.5rem;
+    
+}
+
+.nav-item.active {
+    background-color: var(--primary) !important;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0;
+}
+
+.form {
+    min-width: 500px;
+}
+
+.form-control {
+    border-radius: 0px;
+}
+
+.btn {
+    border-radius: 0;
+}

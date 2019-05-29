@@ -37,9 +37,7 @@ app.set('view engine', '.ejs');
 
 
 app.get('/', function (req, res) {
-
-    res.send('Welcome to Passport with Sequelize');
-
+    res.render('dashboard.ejs');
 });
 
 
@@ -48,7 +46,7 @@ app.use('/profile', require('./profile'));
 
 //load passport strategies
 require('./config/passport/passport.js')(passport, require('./database').User);
-app.use('/ground',require('./grounds/routes.js'))
+app.use('/ground', require('./grounds/routes.js'))
 
 app.listen(3000, function (err) {
 
