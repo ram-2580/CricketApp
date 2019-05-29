@@ -117,18 +117,17 @@ module.exports = function (passport, user) {
             }).then(function (user) {
 
                 if (!user) {
-
-                    return done(null, false, {
-                        message: 'Email does not exist'
-                    });
+                    return done(null, false,
+                        req.flash('message', 'Account does not exist')
+                    );
 
                 }
 
                 if (!isValidPassword(user.password, password)) {
 
-                    return done(null, false, {
-                        message: 'Incorrect password.'
-                    });
+                    return done(null, false,
+                        req.flash('message', 'Password is wrong')
+                    );
 
                 }
 

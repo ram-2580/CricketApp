@@ -45,3 +45,28 @@
 .btn {
     border-radius: 0;
 }
+
+.flash-messages-box {
+    position: fixed;
+    top: 5rem;
+    right: 0;
+}
+
+.flash-message {
+    position: relative;
+    left: -20;
+    width: 20rem;
+    color: white;
+    background-color: var(--primary);
+    padding: 1rem 1rem;
+    padding-right: 2rem;
+    margin-bottom: .5rem;
+}
+
+.flash-message .close {
+    position: absolute;
+    color: black;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .9rem;
+}
