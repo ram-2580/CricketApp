@@ -15,9 +15,15 @@
     padding: 0rem 3rem;
 }
 
+.navbar .profile-pic {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
 .navbar .nav-item {
     padding: .5rem 0.5rem;
-    
+    text-transform: capitalize;
 }
 
 .nav-item.active {

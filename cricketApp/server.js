@@ -1,12 +1,14 @@
 var flash = require('connect-flash');
 var express = require('express');
 var multer = require('multer');
+var { isLoggedIn } = require('./users/middleware');
 var app = express();
 var path = require('path');
 var passport = require('passport');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var env = process.env.NODE_ENV || "development";
+var db = require('./database');
 
 var sessionConfig = require(path.join(__dirname, 'config', 'config.json'))[env].session;
 
@@ -36,8 +38,11 @@ app.set('view engine', '.ejs');
 
 
 
-app.get('/', function (req, res) {
-    res.render('dashboard.ejs');
+app.get('/', isLoggedIn, async function (req, res) {
+    const user = req.user
+    const profile = await db.Profile.findOne({ where: { userId: user.id } })
+    console.log(user)
+    res.render('dashboard', { user: user, profile: profile });
 });
 
 
