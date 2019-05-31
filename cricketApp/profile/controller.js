@@ -40,3 +40,9 @@ module.exports.updateProfile = async (req, res) => {
         console.log(err)
     }
 }
+
+// module.exports.updateProfile = (req, res) => {
+//     const profile = db.Profile.findOne({ where: { userId: req.user.id } });
+//     console.log(profile);
+//     res.redirect('/profile')
+// }

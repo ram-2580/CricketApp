@@ -40,9 +40,9 @@ module.exports = function (passport, user) {
 
                 if (user) {
 
-                    return done(null, false, {
-                        message: 'That email is already taken'
-                    });
+                    return done(null, false,
+                        req.flash('message', 'You allready have account.')
+                    );
 
                 } else {
 
@@ -73,7 +73,7 @@ module.exports = function (passport, user) {
                             }).then((newProfile, option) => {
                                 console.log("Profile created")
                             })
-                            return done(null, newUser);
+                            return done(null, newUser, req.flash('message', 'Your account is created.'));
                         }
 
                     });

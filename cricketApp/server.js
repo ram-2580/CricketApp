@@ -42,7 +42,7 @@ app.get('/', isLoggedIn, async function (req, res) {
     const user = req.user
     const profile = await db.Profile.findOne({ where: { userId: user.id } })
     console.log(user)
-    res.render('dashboard', { user: user, profile: profile });
+    res.render('dashboard', { user: user, profile: profile, messages: req.flash('message') });
 });
 
 
