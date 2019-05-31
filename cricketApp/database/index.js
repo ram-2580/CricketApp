@@ -9,7 +9,7 @@ var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env].d
 
 const db = {};
 
-db.sequelize = dbConnect(config, {
+const sequelize = dbConnect(config, {
     pool: {
         max: 1,
         min: 0,
@@ -17,7 +17,7 @@ db.sequelize = dbConnect(config, {
         idle: 10000
     }
 });
-db.Sequelize = Sequelize;
+
 
 models = {
     'User': '../users/models.js',
@@ -26,13 +26,15 @@ models = {
 }
 
 Object.keys(models).forEach(key => {
-    db[key] = db.sequelize.import(path.join(__dirname, models[key]))
+    db[key] = sequelize.import(path.join(__dirname, models[key]))
 })
 
-//define relations
-db.User.hasOne(db.Profile);
-db.Profile.belongsTo(db.User);
+Object.keys(models).forEach(key => {
+    db[key].associations(db)
+})
 
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 db.sequelize.sync().catch(err => {
     console.log(err);

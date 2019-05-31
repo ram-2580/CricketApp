@@ -1,7 +1,7 @@
 
 module.exports = (db, Sequelize) => {
 
-    return db.define('user', {
+    const User = db.define('user', {
 
         id: {
             autoIncrement: true,
@@ -36,4 +36,9 @@ module.exports = (db, Sequelize) => {
         },
     },
     );
+
+    User.associations = (db) => {
+    }
+
+    return User;
 }

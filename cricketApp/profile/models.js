@@ -1,5 +1,5 @@
 module.exports = (db, Sequelize) => {
-    return db.define('profile', {
+    const Profile = db.define('profile', {
         profilePic: {
             type: Sequelize.STRING,
             defaultValue: '/uploads/profile-pics/default-image.png'
@@ -13,4 +13,11 @@ module.exports = (db, Sequelize) => {
             defaultValue: 0
         }
     });
+
+    Profile.associations = (db) => {
+        db.User.hasOne(db.Profile);
+        db.Profile.belongsTo(db.User);
+    }
+
+    return Profile
 }
