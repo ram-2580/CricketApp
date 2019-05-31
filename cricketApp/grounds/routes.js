@@ -24,7 +24,9 @@ route.post('/add', isLoggedIn, async (req, res) => {
         country: req.body.state,
         email: req.body.email,
         contact: req.body.contactnumber,
-        img_url: req.body.imageurl
+        img_url: req.body.imageurl,
+        latitude:req.body.lat,
+        logitude:req.body.lon
     }
     db.ground.create(data).then(ground => {
         context['ground'] = ground
