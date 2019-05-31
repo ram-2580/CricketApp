@@ -5,14 +5,14 @@ var db = require('../database/index.js');
 route.get('/add', isLoggedIn, async (req, res) => {
     let context = {
         'user': req.user,
-        'profile': await db.Profile.findOne({ where: { userId: user.id } })
+        'profile': await db.Profile.findOne({ where: { userId: req.user.id } })
     }
     res.render('grounds/add', context)
 })
 route.post('/add', isLoggedIn, async (req, res) => {
     let context = {
         'user': req.user,
-        'profile': await db.Profile.findOne({ where: { userId: user.id } })
+        'profile': await db.Profile.findOne({ where: { userId: req.user.id } })
     }
     console.log(req.body)
     var data = {
