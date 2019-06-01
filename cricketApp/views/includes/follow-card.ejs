@@ -1,0 +1,18 @@
+<div class="card mb-3" style="">
+    <div class="row no-gutters">
+        <div class="col-md-5">
+            <img src="<%= f.profile.profilePic %>" class="card-img" alt="...">
+        </div>
+        <div class="col-md-7">
+            <div class="card-body">
+                <h5 class="card-title"><%= f.firstname + ' ' + f.lastname %></h5>
+                <p>
+                    <span>Runs: <%=f.profile.runs%></span><span>Wickets:
+                        <%=f.profile.wickets%></span>
+                    <br>
+                    <span>Matchs: <%=f.profile.matchPlayed%>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
