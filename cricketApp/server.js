@@ -1,9 +1,12 @@
 var flash = require('connect-flash');
 var express = require('express');
 var multer = require('multer');
+var R = require('ramda');
 var { isLoggedIn } = require('./users/middleware');
+var { getUsersData } = require('./utils/user');
 var app = express();
 var path = require('path');
+var { usersData } = require('./utils/user');
 var passport = require('passport');
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -39,10 +42,32 @@ app.set('view engine', '.ejs');
 
 
 app.get('/', isLoggedIn, async function (req, res) {
-    const user = req.user
-    const profile = await db.Profile.findOne({ where: { userId: user.id } })
-    console.log(user)
-    res.render('dashboard', { user: user, profile: profile, messages: req.flash('message') });
+
+
+    const following = await db.Follow.findAll({
+        where: { userId: req.user.id },
+        attributes: ['followingId'],
+    });
+
+    const follower = await db.Follow.findAll({
+        where: { followingId: req.user.id },
+        attributes: ['userId']
+    });
+
+    const followerIds = follower.map(f => f.userId);
+    const followingIds = following.map(f => f.followingId)
+
+    const followers = await getUsersData(followerIds);
+    const followings = await getUsersData(followingIds);
+    console.log(followers, followings);
+    const context = {
+        user: req.user,
+        profile: await db.Profile.findOne({ where: { userId: req.user.id } }),
+        messages: req.flash('message'),
+        followers: followers,
+        followings: followings
+    }
+    res.render('dashboard', context);
 });
 
 

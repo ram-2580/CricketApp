@@ -70,3 +70,33 @@
     transform: translateY(-50%);
     right: .9rem;
 }
+
+.left-navigation {
+    height: 88vh !important
+    ;
+}
+
+.card {
+}
+
+.card .card-body {
+    padding: 1rem 10px;
+}
+
+
+.card .card-title {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.card p {
+    margin-bottom: 5px;
+}
+
+.card p span {
+    margin-right: 7px;
+}
+
+.card img {
+    object-fit: cover;
+}

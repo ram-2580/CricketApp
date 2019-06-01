@@ -4,7 +4,11 @@ module.exports = (db, Sequelize) => {
             type: Sequelize.STRING,
             defaultValue: '/uploads/profile-pics/default-image.png'
         },
-        runScored: {
+        runs: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0
+        },
+        wickets: {
             type: Sequelize.INTEGER,
             defaultValue: 0
         },
@@ -16,7 +20,6 @@ module.exports = (db, Sequelize) => {
 
     Profile.associations = (db) => {
         db.User.hasOne(db.Profile);
-        db.Profile.belongsTo(db.User);
     }
 
     return Profile

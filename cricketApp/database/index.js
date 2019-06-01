@@ -22,7 +22,8 @@ const sequelize = dbConnect(config, {
 models = {
     'User': '../users/models.js',
     'Profile': '../profile/models',
-    'ground': '../grounds/model.js'
+    'ground': '../grounds/model.js',
+    'Follow': '../follow/models.js'
 }
 
 Object.keys(models).forEach(key => {

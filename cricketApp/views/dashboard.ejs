@@ -1,13 +1,13 @@
 <% include base/header %>
 
-<div class="container-fluid">
+<div>
     <div class="row">
 
-        <!-- Side navigation -->
-        <div class="col-md-3">
-            <ul class="nav pt-2 flex-column nav-pills bg-dark text-grey">
+        <!-- Left Side navigation -->
+        <div class="col-md-2">
+            <ul class="nav pt-2 flex-column nav-pills bg-dark text-grey h-100 left-navigation">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -19,7 +19,50 @@
         </div>
 
         <!-- dashboard content -->
-        <div class="col-md-9"></div>
+        <div class="col-md-7"></div>
+
+        <!-- Right side tabs -->
+        <div class="col-md-3">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="following-tab" data-toggle="tab" href="#following" role="tab"
+                        aria-controls="home" aria-selected="true">Following</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="follower-tab" data-toggle="tab" href="#follower" role="tab"
+                        aria-controls="profile" aria-selected="false">Followers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab"
+                        aria-controls="profile" aria-selected="false">Follow</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+
+                <!-- Following display -->
+                <div class="tab-pane fade show active" id="following" role="tabpanel" aria-labelledby="following-tab">
+                    <% if (typeof followings != 'undefined') { %>
+                    <% followings.map(f => { %>
+                    <%- include('./includes/follow-card', {f: f}) %>
+                    <% }) %>
+                    <% } %>
+                </div>
+
+                <!-- Follower display -->
+                <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follwer-tab">
+                    <% if (typeof followers != 'undefined') { %>
+                    <% followers.forEach(f => { %>
+                    <%- include('./includes/follow-card', {f: f}) %>
+                    <% }) %>
+                    <% } %>
+                </div>
+
+                <!-- Follow tab -->
+                <div class="tab-pane fade show" id="follow" role="tabpanel" aria-labelledby="follow-tab">
+                    Follow
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
