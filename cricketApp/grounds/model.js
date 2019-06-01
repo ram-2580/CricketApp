@@ -37,8 +37,13 @@ module.exports = (db, Sequelize) => {
         },
         img_url: {
             type: Sequelize.TEXT
+        },
+        latitude:{
+            type : Sequelize.DECIMAL(10,8)
+        },
+        longitude:{
+            type : Sequelize.DECIMAL(11,8)
         }
-
     });
 
     Ground.associations = (db) => {
