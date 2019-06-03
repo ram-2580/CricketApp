@@ -1,4 +1,4 @@
-const fileUploader = require('../utils/fileUpload');
+const { fileUploader, trimedFilePath } = require('../utils/fileUpload');
 const R = require('ramda');
 const db = require('../database');
 
@@ -20,10 +20,6 @@ module.exports.updateProfile = async (req, res) => {
                 req.flash('message', 'Can not upload profile')
                 res.redirect('/proflie');
             } else {
-                // req => filepath
-                const filePath = R.compose(R.prop('destination'), R.prop('file'));
-                // req => trimedFilePath
-                const trimedFilePath = R.compose(R.replace('public', ''), R.replace('./', ''), filePath);
                 console.log(req.file)
                 const path = trimedFilePath(req) + req.file.filename
                 profile.update({ 'profilePic': path })

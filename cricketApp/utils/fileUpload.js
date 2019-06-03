@@ -2,7 +2,7 @@ const multer = require('multer');
 const path = require('path');
 const R = require('ramda');
 
-module.exports = (folderName, fieldName, settings = {}) => {
+module.exports.fileUploader = (folderName, fieldName, settings = {}) => {
 
     const storage = multer.diskStorage({
         destination: './public/uploads/' + folderName + '/',
@@ -19,3 +19,7 @@ module.exports = (folderName, fieldName, settings = {}) => {
 
     return upload = multer(newSettings).single(fieldName)
 }
+
+const filePath = R.compose(R.prop('destination'), R.prop('file'));
+// req => trimedFilePath
+module.exports.trimedFilePath = R.compose(R.replace('public', ''), R.replace('./', ''), filePath);

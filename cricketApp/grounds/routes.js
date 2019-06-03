@@ -1,6 +1,10 @@
 var route = require('express').Router();
 var { isLoggedIn } = require('../users/middleware');
+const { fileUploader, trimedFilePath } = require('../utils/fileUpload');
 var db = require('../database/index.js');
+var R = require('ramda');
+
+const upload = fileUploader('grounds-imgs', 'image')
 
 route.get('/add', isLoggedIn, async (req, res) => {
     let context = {
@@ -10,6 +14,8 @@ route.get('/add', isLoggedIn, async (req, res) => {
     res.render('grounds/add', context)
 })
 route.post('/add', isLoggedIn, async (req, res) => {
+
+
     let context = {
         'user': req.user,
         'profile': await db.Profile.findOne({ where: { userId: req.user.id } })
@@ -24,14 +30,28 @@ route.post('/add', isLoggedIn, async (req, res) => {
         country: req.body.state,
         email: req.body.email,
         contact: req.body.contactnumber,
-        img_url: req.body.imageurl,
-        latitude:req.body.lat,
-        logitude:req.body.lon
+        latitude: req.body.lat,
+        logitude: req.body.lon
     }
-    db.ground.create(data).then(ground => {
-        context['ground'] = ground
-        res.render('grounds/ground', context)
-    });
+
+    upload(req, res, (err) => {
+        if (!err) {
+            console.log(req.file);
+            let filePath = trimedFilePath(req);
+            console.log(filePath)
+            data['img_url'] = filePath + req.file.filename;
+            console.log(data);
+            db.ground.create(data).then(ground => {
+                context['ground'] = ground
+                req.flash('message', 'Ground is Added.')
+                res.redirect('/');
+            });
+        }
+        else {
+            req.flash('message', 'Unable to upload file.');
+            res.redirect('/');
+        }
+    })
 })
 
 

@@ -22,7 +22,7 @@ app.use(flash())
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(session({
@@ -59,7 +59,8 @@ app.get('/', isLoggedIn, async function (req, res) {
 
     const followers = await getUsersData(followerIds);
     const followings = await getUsersData(followingIds);
-    console.log(followers, followings);
+
+
     const context = {
         user: req.user,
         profile: await db.Profile.findOne({ where: { userId: req.user.id } }),
@@ -71,12 +72,14 @@ app.get('/', isLoggedIn, async function (req, res) {
 });
 
 
-app.use('/users', require('./users'));
-app.use('/profile', require('./profile'));
-
 //load passport strategies
 require('./config/passport/passport.js')(passport, require('./database').User);
+
+//Routes
+app.use('/users', require('./users'));
+app.use('/profile', require('./profile'));
 app.use('/ground', require('./grounds/routes.js'))
+
 
 app.listen(3000, function (err) {
 

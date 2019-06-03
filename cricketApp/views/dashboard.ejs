@@ -1,25 +1,53 @@
 <% include base/header %>
 
 <div>
-    <div class="row">
+    <div class="row no-gutters">
 
         <!-- Left Side navigation -->
-        <div class="col-md-2">
-            <ul class="nav pt-2 flex-column nav-pills bg-dark text-grey h-100 left-navigation">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-        </div>
+        <%- include('./includes/left-side-nav.ejs', {page: 'home'}) %>
 
         <!-- dashboard content -->
-        <div class="col-md-7"></div>
+        <div class="col-md-7">
+            <div class="jumbotron py-4 bg-primary rounded-0">
+                <div class="row no-gutters bg-white" style="height: 250px;">
+                    <div class="col-md-5">
+                        <img src="<%= profile.profilePic %>" alt="" class="img-fluid" style="height: 250px; object-fit: cover
+                        ">
+                    </div>
+                    <div class="col-md-7 border border-light pl-3">
+                        <h2 class="text-capitalize mt-4"><%= user.firstname + ' ' + user.lastname %></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2 class="border-bottom px-2 py-3 mb-3">
+                    Grounds
+                    <a class="btn btn-primary float-right text-white" href="/ground/add">
+                        Add Grounds
+                    </a>
+                </h2>
+
+                <div class="ground border mx-3 mb-2">
+                    <div class="row no-gutters" style="height: 130px;">
+                        <div class="col-md-4">
+                            <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201901/mcgpitch010119.jpeg?xAu1wdba94rPUp6e9g6jUuSDY4dGmxLv"
+                                alt="" style="height: 130px; object-fit: cover;">
+                        </div>
+                        <div class="col-md-8 pl-3">
+                            <h2 class="mb-3 mt-2">
+                                Stadium Abc
+                                <a href="#" class="btn btn-primary mr-2 float-right">Play Match</a>
+                            </h2>
+                            <p class="text-muted">
+                                Harsh Vihar D-1/1314 Bank Colony,<br> Mondoly Delhi-110093
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <!-- Right side tabs -->
         <div class="col-md-3">
@@ -49,7 +77,7 @@
                 </div>
 
                 <!-- Follower display -->
-                <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follwer-tab">
+                <div class=" tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follwer-tab">
                     <% if (typeof followers != 'undefined') { %>
                     <% followers.forEach(f => { %>
                     <%- include('./includes/follow-card', {f: f}) %>
