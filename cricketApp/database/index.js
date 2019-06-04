@@ -23,7 +23,13 @@ models = {
     'User': '../users/models.js',
     'Profile': '../profile/models',
     'ground': '../grounds/model.js',
-    'Follow': '../follow/models.js'
+    'Follow': '../follow/models.js',
+    'Match':'../match/models/match.js',
+    'Batting':'../match/models/batting.js',
+    'Bowling':'../match/models/bowling.js',
+    'Teamscore':'../match/models/teamscore.js',
+    'Team':'../team/models/team.js',
+    'Player':'../team/models/player.js'
 }
 
 Object.keys(models).forEach(key => {
