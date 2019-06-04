@@ -1,20 +1,69 @@
 <% include ../base/header %>
-<h1>add a new ground</h1>
-<form method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" placeholder="image location">
-    <input type="text" name="name" placeholder="name">
-    <input type="text" name="landmark" placeholder="landmark">
-    <input type="text" name="city" placeholder="city">
-    <input type="text" name="district" placeholder="district">
-    <input type="text" name="state" placeholder="state">
-    <input type="text" name="country" placeholder="country">
-    <input type="email" name="email" placeholder="email">
-    <input type="tel" name="contactnumber" placeholder="contact number">
-    <input type="hidden" id="lat" name="lat">
-    <input type="hidden" id="lon" name="lon">
-    <input type="submit" value="submit">
-</form>
-<button onclick="getlocation()">getlocation</button>
+<div class="container d-flex justify-content-center">
+    <form class="form py-4 px-5 bg-dark text-white mt-4" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image">
+                        <label class="custom-file-label rounded-0" for="image">Choose file</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <button class="btn btn-primary" type="button" onclick="getlocation()">Give location</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name">
+                </div>
+                <div class="col-md-6">
+                    <label for="landmark">Landmark</label>
+                    <input class="form-control" type="text" name="landmark">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="city">City/Town</label>
+                    <input class="form-control" type="text" name="city">
+                </div>
+                <div class="col-md-6">
+                    <label for="district">District</label>
+                    <input class="form-control" type="text" name="district">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="state">State</label>
+                    <input class="form-control" type="text" name="state">
+                </div>
+                <div class="col-md-6">
+                    <label for="country">Country</label>
+                    <input class="form-control" type="text" name="country">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact</label>
+            <input class="form-control" type="tel" name="contact">
+        </div>
+
+        <input type="hidden" id="lat" name="latitude">
+        <input type="hidden" id="lon" name="longitude">
+        <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+</div>
 <script>
     function getlocation() {
         if (navigator.geolocation) {
