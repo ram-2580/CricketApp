@@ -1,0 +1,23 @@
+<% include ../base/header %>
+
+<div class="row no-gutters">
+
+    <!-- left side nav -->
+    <div class="col-md-2">
+        <%- include('../includes/left-side-nav.ejs', {page: 'team'}) %>
+    </div>
+
+    <!-- div content -->
+    <div class="col-md-10">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <% if (typeof team == 'undefined')  { %>
+            <h2 class="mb-4">You are not part of any team.</h2>
+            <a href="/team/create" class="btn btn-primary">Create Your Own Team</a>
+            <% } %>
+        </div>
+    </div>
+
+
+</div>
+
+<% include ../base/footer %>

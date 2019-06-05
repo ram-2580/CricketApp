@@ -1,12 +1,12 @@
 module.exports = (db, Sequelize) => {
-    const Team = db.define('Team', {
-        team:{
-            type:Sequelize.TEXT
+    const Team = db.define('team', {
+        name: {
+            type: Sequelize.TEXT
         }
     })
 
     Team.associations = (db) => {
-       
+        db.Team.belongsTo(db.User, { 'as': 'captain' })
     }
 
     return Team

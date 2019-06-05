@@ -1,16 +1,19 @@
 module.exports = (db, Sequelize) => {
-    const Player = db.define('Player', {
-       name:{
-           type:Sequelize.TEXT
-       },
-       type:{
-           type:Sequelize.TEXT
-       },
+    const Player = db.define('player', {
+        type: {
+            type: Sequelize.STRING
+        },
+        type: {
+            type: Sequelize.STRING
+        },
+        status: {
+            type: Sequelize.INTEGER, // 0: invited in team, 1: part of team, 3: captain
+        }
     })
 
     Player.associations = (db) => {
-       db.Team.hasMany(db.Player)
-       db.User.hasOne(db.Player)
+        db.Player.belongsTo(db.Team);
+        db.Player.belongsTo(db.User, { 'as': 'player' });
     }
 
     return Player

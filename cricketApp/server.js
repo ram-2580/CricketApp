@@ -73,11 +73,8 @@ require('./config/passport/passport.js')(passport, require('./database').User);
 //Routes
 app.use('/users', require('./users'));
 app.use('/profile', require('./profile'));
-// app.post('/ground/add', (req, res) => {
-//     console.log(req.body);
-//     res.redirect('/')
-// })
-app.use('/ground', require('./grounds/routes.js'))
+app.use('/ground', require('./grounds/routes.js'));
+app.use('/team', require('./team'));
 
 
 app.listen(3000, function (err) {
