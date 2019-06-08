@@ -3,11 +3,8 @@ module.exports = (db, Sequelize) => {
         type: {
             type: Sequelize.STRING
         },
-        type: {
-            type: Sequelize.STRING
-        },
         status: {
-            type: Sequelize.INTEGER, // 0: invited in team, 1: part of team, 3: captain
+            type: Sequelize.INTEGER, // 0: invited in team, 1: part of team, 2:vice-captain, 3: captain
         }
     })
 
