@@ -7,11 +7,9 @@ const R = require('ramda');
 
 
 let getTeam = async (user) => {
-
     let members = await db.sequelize.query("SELECT users.id as id, firstname, lastname, teamId, status, email, profilePic, wickets, runs, matchPlayed  FROM `players` INNER JOIN `users` on players.playerId = users.id INNER JOIN `profiles` on players.playerId = profiles.userId WHERE players.status != 0 AND teamId in (SELECT teamId FROM `players` WHERE playerId=" +
         user.id + " );", { type: db.sequelize.QueryTypes.SELECT });
     let captain = R.head(members.filter(p => p.status == 3));
-    console.log(captain);
     let team = await db.Team.findOne({ 'where': { 'captainId': captain.id } });
 
     return team ? { id: team.id, name: team.name, members, captain } : false
@@ -35,11 +33,15 @@ router.get('/', isLoggedIn, async (req, res) => {
         profile: await db.Profile.findOne({ 'where': { 'userId': req.user.id } }),
         messages: req.flash('message')
     }
-    const team = await getTeam(req.user);
-    if (team) {
-        let invite = await getPlayersToInvite(team.id);
-        context.team = team;
-        context.invite = invite;
+    try {
+        const team = await getTeam(req.user);
+        if (team) {
+            let invite = await getPlayersToInvite(team.id);
+            context.team = team;
+            context.invite = invite;
+        }
+    } catch (e) {
+        console.log(e);
     }
 
     res.render('team/index', context);

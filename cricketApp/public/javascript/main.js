@@ -9,7 +9,7 @@ function sendInvitation(teamId, id, fn) {
 }
 
 function removeFromDom(e) {
-    $(e).fade().remove();
+    $(e).fadeOut().remove();
 }
 
 
