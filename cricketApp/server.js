@@ -35,6 +35,11 @@ app.set('views', './views')
 app.set('view engine', '.ejs');
 
 
+let getFollowSuggestions = async (id) => {
+    return await db.sequelize.query("SELECT users.id as id, firstname, lastname, email, profilePic, wickets, runs, matchPlayed FROM `users` INNER JOIN `profiles` on users.id = profiles.userId  WHERE users.id not in (SELECT followingId as id FROM `follows` WHERE userId = " + id + ")",
+        { type: db.sequelize.QueryTypes.SELECT }
+    )
+}
 
 app.get('/', isLoggedIn, async function (req, res) {
 
@@ -54,15 +59,16 @@ app.get('/', isLoggedIn, async function (req, res) {
 
     const followers = await getUsersData(followerIds);
     const followings = await getUsersData(followingIds);
-
-
+    const followSuggestions = await getFollowSuggestions(req.user.id);
+    console.log(followSuggestions);
     const context = {
         user: req.user,
         profile: await db.Profile.findOne({ where: { userId: req.user.id } }),
         grounds: await db.ground.findAll(),
         messages: req.flash('message'),
         followers: followers,
-        followings: followings
+        followings: followings,
+        followSuggestions
     }
     res.render('dashboard', context);
 });

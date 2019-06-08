@@ -90,7 +90,11 @@
 
             <!-- Follow tab -->
             <div class="tab-pane fade show" id="follow" role="tabpanel" aria-labelledby="follow-tab">
-                Follow
+                <% if (typeof followSuggestions != 'undefined') { %>
+                <% followSuggestions.map(f => { %>
+                <%- include('./includes/followrequest-card.ejs', {f: f}) %>
+                <%}) %>
+                <% } %>
             </div>
         </div>
     </div>
