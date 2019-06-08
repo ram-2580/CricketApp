@@ -20,6 +20,7 @@ module.exports = (db, Sequelize) => {
 
     Profile.associations = (db) => {
         db.User.hasOne(db.Profile);
+        db.Profile.belongsTo(db.User);
     }
 
     return Profile

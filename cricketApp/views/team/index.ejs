@@ -8,16 +8,69 @@
     </div>
 
     <!-- div content -->
-    <div class="col-md-10">
+    <div class="col-md-7">
+
+        <% if (typeof team == 'undefined')  { %>
         <div class="d-flex flex-column justify-content-center align-items-center h-100">
-            <% if (typeof team == 'undefined')  { %>
             <h2 class="mb-4">You are not part of any team.</h2>
             <a href="/team/create" class="btn btn-primary">Create Your Own Team</a>
-            <% } %>
         </div>
+        <% } else {%>
+        <div class="fluid-container">
+            <div class="container">
+                <div class="header mb-5 mt-5">
+                    <h1>Team Name:- <%= team.name %></h1>
+                </div>
+            </div>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Matchs</th>
+                        <th scope="col">Runs</th>
+                        <th scope="col">Wickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% team.members.map((p, i) => { %>
+                    <tr>
+                        <th scope="row"><%= i+1 %></th>
+                        <td class="text-capitalize"><%= p.firstname + ' ' + p.lastname %></td>
+                        <td><%= p.matchPlayed %></td>
+                        <td><%= p.runs %></td>
+                        <td><%= p.wickets %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% }%>
     </div>
-
-
+    <div class="col-md-3">
+        <% invite.map(player => { %>
+        <div class="card mb-3" style="">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="<%= player.profilePic %>" class="card-img" alt="...">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= player.firstname + ' ' + player.lastname %></h5>
+                        <p>
+                            <span class="text-muted"><%= player.email %></span>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary invite-button" data-team-id="<%= team.id %>"
+                            data-id="<%= player.id %>">Invite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%})%>
+    </div>
 </div>
+
 
 <% include ../base/footer %>

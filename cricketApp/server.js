@@ -18,6 +18,7 @@ var app = express();
 app.use(flash())
 //For BodyParser
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(session({
     secret: sessionConfig.secret,
