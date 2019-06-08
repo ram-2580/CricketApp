@@ -82,6 +82,7 @@ app.use('/users', require('./users'));
 app.use('/profile', require('./profile'));
 app.use('/ground', require('./grounds/routes.js'));
 app.use('/team', require('./team'));
+app.use('/follow', require('./follow/route.js'));
 
 
 app.listen(3000, function (err) {

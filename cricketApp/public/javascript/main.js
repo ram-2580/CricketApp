@@ -1,7 +1,13 @@
 $('.flash-message .close').on('click', (e) => {
     $(e.target).parent().fadeOut()
 })
-
+function follow(id) {
+    $.post('/follow/addFollowing',{f_id : id},function (data,status){
+        if(status=='success') {
+            $('#follow').html('following')
+        }
+    })
+}
 function sendInvitation(teamId, id, fn) {
     $.get('/team/invite/' + teamId + "/" + id, function (data, status) {
         fn(status);

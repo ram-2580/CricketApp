@@ -2,7 +2,7 @@ const route = require('express').Router()
 const db = require('../database/index.js')
 //var { isLoggedIn } = require('./users/middleware');
 
-route.post('/addfollowreq', (req, res) => {
+route.post('/addFollowing', (req, res) => {
     var data = {
         followingId: req.body.f_id,
         userId: req.user.id
