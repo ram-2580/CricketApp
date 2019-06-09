@@ -14,4 +14,16 @@ route.post('/addFollowing', (req, res) => {
         res.send(400);
     })
 })
+route.post('/removeFollowing', (req, res) => {
+    var data = {
+        followingId: req.body.f_id,
+        userId: req.user.id
+    };
+    db.sequelize.query("delete from `follows` where (`followingId` =" + data.followingId+" and `userId` = "+data.userId+")",{ type: db.sequelize.QueryTypes.DELETE }).then(o => {
+        res.sendStatus(200);
+    }
+    ).catch(er => {
+        res.sendStatus(400);
+    })
+})
 module.exports = route

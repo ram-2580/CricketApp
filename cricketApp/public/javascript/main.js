@@ -8,6 +8,13 @@ function follow(id) {
         }
     })
 }
+function unfollow(id) {
+    $.post('/follow/removeFollowing',{f_id : id},function (data,status){
+        if(status=='success') {
+            $('#unfollow').html('follow')
+        }
+    })
+}
 function sendInvitation(teamId, id, fn) {
     $.get('/team/invite/' + teamId + "/" + id, function (data, status) {
         fn(status);
