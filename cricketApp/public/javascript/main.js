@@ -4,7 +4,7 @@ $('.flash-message .close').on('click', (e) => {
 function follow(id) {
     $.post('/follow/addFollowing', { f_id: id }, function (data, status) {
         if (status == 'success') {
-            $('#follow').html('following')
+            $('#follows').html('following')
         }
     })
 }

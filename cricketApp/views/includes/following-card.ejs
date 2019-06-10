@@ -13,6 +13,7 @@
                     <span>Matchs: <%=f.profile.matchPlayed%>
                 </p>
                  <a href="#" id= "unfollow" class="btn btn-primary mr-2 float-right" onclick="unfollow( <%= f.id %> )">Unfollow</a>
+                 <a href="/chat/<%=f.id%>" id= "chat" class="btn btn-primary mr-2 float-left" onclick="chat( <%= f.id %> )">Message</a>
             </div>
         </div>
     </div>

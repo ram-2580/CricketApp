@@ -1,0 +1,54 @@
+
+<!doctype  html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Real-time chat</title>
+        <script src=https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js></script>
+        <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"  rel="stylesheet"  id="bootstrap-css">
+
+        <link  href="/css/style.css"  type="text/css"  rel="stylesheet"/>
+</head>
+
+<body>
+    <h1><%=profile.firstname%></h1>
+        <div class="chat_window">
+                <div class="top_menu">
+                    <div class="buttons">
+                        <div class="button close"></div>
+                        <div class="button minimize"></div>
+                        <div class="button maximize"></div>
+                    </div>
+                    <div class="title">Chat</div>
+                </div>
+                <ul id ="messages" class="messages">
+                    
+                </ul>
+                 
+                <div class="bottom_wrapper clearfix">
+               <i id="typing"></i>
+                <form id="form">
+
+                    <div class="message_input_wrapper">
+                            <input type="hidden" id="handel" class="message_input" placeholder="handel name"/>
+                    </div>
+
+                    <div class="message_input_wrapper">
+                       
+                        <input  id="message" class="message_input" placeholder="Type your message here..." />
+                    </div>
+                    <button type="submit" class="send_message">
+                       Send
+                    </button>
+                  </form>
+                </div>
+            </div>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+<script  src="/javascript/chat.js"></script>
+
+</body>
+</html>

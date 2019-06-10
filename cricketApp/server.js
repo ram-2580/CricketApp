@@ -10,6 +10,7 @@ var passport = require('passport');
 var session = require('express-session');
 var env = process.env.NODE_ENV || "development";
 var db = require('./database');
+const socket = require('socket.io')
 
 var sessionConfig = require(path.join(__dirname, 'config', 'config.json'))[env].session;
 
@@ -83,9 +84,9 @@ app.use('/profile', require('./profile'));
 app.use('/ground', require('./grounds/routes.js'));
 app.use('/team', require('./team'));
 app.use('/follow', require('./follow/route.js'));
+app.use('/chat', require('./chat/route.js'));
 
-
-app.listen(3000, function (err) {
+var server = app.listen(3000, function (err) {
 
     if (!err)
 
@@ -94,3 +95,24 @@ app.listen(3000, function (err) {
     else console.log(err)
 
 });
+
+var io = socket(server)
+
+io.on('connection',function(socket){
+    console.log(socket.id + "connected")
+
+    socket.on('disconnect',()=>{
+        console.log(socket.id + 'disconnected')
+    })
+
+    socket.on('chat',(data)=>{
+        socket.broadcast.emit('chat',data)
+       // db.chat.create({message:data.msg,sender:data.handel})
+    })
+    socket.on('typing',(data)=>{
+        socket.broadcast.emit('typing',data)
+    })
+    socket.on('clear',(data)=>{
+        socket.broadcast.emit('clear',{})
+    })
+})
