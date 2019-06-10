@@ -1,7 +1,7 @@
 const Router = require('express').Router;
 const passport = require('passport');
 const controller = require('./controller');
-const { isLoggedIn } = require('./middleware');
+const { isLoggedIn, isLoggedInApi } = require('./middleware');
 
 
 const router = Router()
@@ -33,6 +33,8 @@ router.post('/signin', passport.authenticate('local-signin', {
 ));
 
 router.get('/dashboard', isLoggedIn, controller.dashboard);
+
+router.get('/notifications', isLoggedInApi, controller.sendNotifications);
 
 router.get('/logout', controller.logout)
 
