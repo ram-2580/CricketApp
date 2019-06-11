@@ -107,12 +107,12 @@ io.on('connection',function(socket){
 
     socket.on('chat',(data)=>{
         socket.broadcast.emit('chat',data)
-       // db.chat.create({message:data.msg,sender:data.handel})
+        db.Chat.create({message:data.msg,userId:data.user,following_id:data.fId})
     })
     socket.on('typing',(data)=>{
         socket.broadcast.emit('typing',data)
     })
     socket.on('clear',(data)=>{
-        socket.broadcast.emit('clear',{})
+        socket.broadcast.emit('clear',data)
     })
 })

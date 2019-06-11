@@ -29,7 +29,8 @@ models = {
     'Bowling':'../match/models/bowling.js',
     'Teamscore':'../match/models/teamscore.js',
     'Team':'../team/models/team.js',
-    'Player':'../team/models/player.js'
+    'Player':'../team/models/player.js',
+    'Chat' : '../chat/model.js'
 }
 
 Object.keys(models).forEach(key => {

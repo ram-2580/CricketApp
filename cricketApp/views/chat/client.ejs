@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <h1><%=profile.firstname%></h1>
+        <h1>user : <%=data.user.firstname %> <%=data.user.id %><br> otherend <%=data.profile.firstname %> <%=data.profile.id %></h1>
         <div class="chat_window">
                 <div class="top_menu">
                     <div class="buttons">
@@ -25,7 +25,13 @@
                     <div class="title">Chat</div>
                 </div>
                 <ul id ="messages" class="messages">
-                    
+                        <% data.chat.forEach(f => { %>
+                            <% if(f.userId == data.user.id) { %>
+                              <li><%=data.user.firstname%> <%=data.user.lastname%> : <%=f.message%></li>
+                            <% }else{  %>
+                                <li><%=data.profile.firstname%> <%=data.profile.lastname%> : <%=f.message%></li> 
+                            <%}%>
+                        <% }) %>
                 </ul>
                  
                 <div class="bottom_wrapper clearfix">
@@ -33,7 +39,7 @@
                 <form id="form">
 
                     <div class="message_input_wrapper">
-                            <input type="hidden" id="handel" class="message_input" placeholder="handel name"/>
+                            <input type="hidden" id="handel" class="message_input" placeholder="handel name" value="<%=data.user.firstname%>  <%=data.user.lastname%>"/>
                     </div>
 
                     <div class="message_input_wrapper">
@@ -46,9 +52,10 @@
                   </form>
                 </div>
             </div>
+            <input type="hidden" id = "followingsid" value="<%=data.profile.id%>">
+            <input type="hidden" id = "usersid" value="<%=data.user.id%>">
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 
 <script  src="/javascript/chat.js"></script>
-
 </body>
 </html>
