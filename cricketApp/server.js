@@ -83,6 +83,7 @@ app.use('/users', require('./users'));
 app.use('/profile', require('./profile'));
 app.use('/ground', require('./grounds/routes.js'));
 app.use('/team', require('./team'));
+app.use('/match', require('./match'));
 app.use('/follow', require('./follow/route.js'));
 app.use('/chat', require('./chat/route.js'));
 
@@ -98,21 +99,21 @@ var server = app.listen(3000, function (err) {
 
 var io = socket(server)
 
-io.on('connection',function(socket){
+io.on('connection', function (socket) {
     console.log(socket.id + "connected")
 
-    socket.on('disconnect',()=>{
+    socket.on('disconnect', () => {
         console.log(socket.id + 'disconnected')
     })
 
-    socket.on('chat',(data)=>{
-        socket.broadcast.emit('chat',data)
-        db.Chat.create({message:data.msg,userId:data.user,following_id:data.fId})
+    socket.on('chat', (data) => {
+        socket.broadcast.emit('chat', data)
+        db.Chat.create({ message: data.msg, userId: data.user, following_id: data.fId })
     })
-    socket.on('typing',(data)=>{
-        socket.broadcast.emit('typing',data)
+    socket.on('typing', (data) => {
+        socket.broadcast.emit('typing', data)
     })
-    socket.on('clear',(data)=>{
-        socket.broadcast.emit('clear',data)
+    socket.on('clear', (data) => {
+        socket.broadcast.emit('clear', data)
     })
 })
