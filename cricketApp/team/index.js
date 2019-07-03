@@ -4,6 +4,7 @@ const db = require('../database');
 const Op = require('sequelize').Op;
 const router = Router()
 const R = require('ramda');
+const { createMatch } = require('../match/utils');
 
 
 let getTeam = async (user) => {
@@ -45,6 +46,11 @@ let rejectInvitation = async (teamId, userId) => {
         console.log(p);
         p.destroy();
     })
+}
+
+let getTeamToPlayMatch = async () => {
+    const teams = await db.Team.findAll({ raw: true });
+    return teams;
 }
 
 router.get('/', isLoggedIn, async (req, res) => {
@@ -130,7 +136,6 @@ router.get('/invite/:teamId/reject', isLoggedInApi, async (req, res) => {
 })
 
 router.get('/invite/:teamId/:id', isLoggedInApi, async (req, res) => {
-    console.log('route is called');
     try {
         let invitation = await inviteUser(req.params.teamId, req.params.id);
         console.log(invitation);
@@ -139,5 +144,27 @@ router.get('/invite/:teamId/:id', isLoggedInApi, async (req, res) => {
         res.send(400);
     }
 });
+
+
+//Team Invitaion backhand
+router.get('/getTeamsToPlay', isLoggedInApi, async (req, res) => {
+    const teams = await getTeamToPlayMatch();
+    res.send(teams);
+});
+
+// Creating a match request
+router.get('/inviteTeam/:teamId', isLoggedInApi, async (req, res) => {
+    let team = await db.Team.findOne({ 'where': { 'captainId': req.user.id } });
+
+    if (!team) {
+        return res.status(401).send('You are not captain');
+    }
+
+    if (! await createMatch(team.id, req.params.teamId)) {
+        return res.status(500).send('Sorry unable to create match');
+    }
+
+    res.status(200).send();
+})
 
 module.exports = router;

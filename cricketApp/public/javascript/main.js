@@ -1,3 +1,25 @@
+function getData(url, fn) {
+    $.get(url, fn);
+}
+
+getData = R.curry(getData);
+
+function removeFromDom(e) {
+    $(e).fadeOut().remove();
+}
+
+function appendToDOM(selector, data) {
+    $(selector).append(data);
+    return data
+}
+
+appendToDOM = R.curry(appendToDOM);
+
+function trace(x) {
+    console.log(x);
+    return x
+}
+
 $('.flash-message .close').on('click', (e) => {
     $(e.target).parent().fadeOut()
 })
@@ -9,8 +31,8 @@ function follow(id) {
     })
 }
 function unfollow(id) {
-    $.post('/follow/removeFollowing',{f_id : id},function (data,status){
-        if(status=='success') {
+    $.post('/follow/removeFollowing', { f_id: id }, function (data, status) {
+        if (status == 'success') {
             $('#unfollow').html('follow')
         }
     })
@@ -20,11 +42,6 @@ function sendInvitation(teamId, id, fn) {
         fn(status);
     });
 }
-
-function removeFromDom(e) {
-    $(e).fadeOut().remove();
-}
-
 
 $('.invite-button').on('click', e => {
     let id = $(e.target).attr('data-id');
@@ -40,41 +57,61 @@ $('.invite-button').on('click', e => {
 });
 
 // Notifications
+var getNotifications = getData('/users/notifications')
 
-function getNotifications(fn) {
-    $.get('/users/notifications', fn);
-}
-
-function notifications(data) {
-    console.log(data);
-}
 
 function joinNotificationMarkUp(data) {
-    return `<div class="py-2 px-3 border-1 join-notification" data-team-id="${data.id}">
-        <p>You are invited to join ${data.name} team</p>
+    return `<div class="py-2 px-3 border-1 join-notification dropdown-item" data-team-id="${data.id}">
+        <p>Invited to join ${data.name} team</p>
         <a  class="btn btn-success mr-1" onClick="join(this)">Join</a>
         <a class="btn btn-danger" onClick="reject(this)">Decline</a>
     </div>`
 }
 
-function append(selector, data) {
-    $(selector).append(data);
-    return data
+function matchMakingNotificationMarkUp(data) {
+    return `<div class="py-2 px-3 border-1 dropdown-item" data-match-id="${data.id}">
+                <p>Invited by ${data.team} to play match</p>
+                <a class="btn btn-success mr-1" onClick="acceptMatch(this)">Accept<a>
+                <a class="btn btn-danger" onClick="rejectMatch(this)">Decline</a>
+            </div>
+        `
 }
 
-append = R.curry(append);
+function acceptMatch(e) {
+    let matchId = R.compose(getAttr('data-match-id'), parent)(e);
+    getData(`match/accept/${matchId}`, (data, status) => {
+        console.log(data, status);
+        if (status == 'success') {
+            removeFromDom(parent(e));
+        }
+    });
+}
 
-var renderNotification = (data, status) => {
-    R.compose(console.log, R.map(append('#notifications-menu')), R.map(joinNotificationMarkUp), R.prop("joinTeamNotification"))(data);
+function rejectMatch(e) {
+    let matchId = R.compose(getAttr('data-match-id'), parent)(e);
+    getData(`match/reject/${matchId}`, (data, status) => {
+        console.log(data, status);
+        if (status == 'success') {
+            removeFromDom(parent(e));
+        }
+    });
+}
+
+
+var renderNotificationToDOM = (data, status) => {
+    R.compose(R.map(appendToDOM('#notifications-menu')), R.map(joinNotificationMarkUp), R.prop("joinTeamNotification"))(data);
+    R.compose(R.map(appendToDOM('#notifications-menu')), R.map(matchMakingNotificationMarkUp), R.prop("matchMakingNotification"))(data);
 }
 
 var dataOrError = R.ifElse(
     (data, status) => status == 'success',
-    renderNotification,
+    renderNotificationToDOM,
     (data, status) => console.log("error")
 );
 
 getNotifications(dataOrError);
+
+
 function parent(e) {
     return $(e).parent()
 }
@@ -119,3 +156,27 @@ var handleRejectResponse = R.ifElse(
 
 var join = R.compose(sendJoinRequest(handleJoinResponse), getAttr('data-team-id'), parent);
 var reject = R.compose(sendRejectRequest(handleRejectResponse), getAttr('data-team-id'), parent);
+
+// Invite to play match
+function renderTeam(team) {
+    return `
+        <a href="#" class="list-group-item list-group-item-action" style="border-radius: 0";>
+            <div>
+                <h2>${team.name} <button onClick="inviteTeamToPlay(${team.id})" class="btn btn-primary float-right text-white">Invite</button>
+                </h2>
+            </div>
+        </a>
+    `
+}
+
+var renderTeams = R.compose(appendToDOM('#teams-to-invite'), R.map(renderTeam), trace);
+
+function getTeamForMatching() {
+    var getTeams = getData('/team/getTeamsToPlay');
+    getTeams(renderTeams);
+}
+
+function inviteTeamToPlay(id) {
+    var inviteTeam = getData('/team/inviteTeam/' + id);
+    inviteTeam(console.log);
+}

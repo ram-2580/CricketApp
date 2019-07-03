@@ -5,7 +5,45 @@
         <%- include('../includes/left-side-nav.ejs', {page: 'match'}) %>
     </div>
 
-    <div class="col-md-10"></div>
+    <div class="col-md-10">
+        <div class="modal fade" id="invite-team-model" tabindex="-1" role="dialog" aria-labelledby="invite-team-label"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="invite-team-label">Invite Team</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="list-group" id="teams-to-invite">
+                            <!-- Team for inviting are rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="border-bottom px-2 py-3 mb-3">
+                Matchs
+                <% if (isCaptain) { %>
+                <a class="btn btn-primary float-right text-white" type="button" data-toggle="modal"
+                    data-target="#invite-team-model" onClick=getTeamForMatching()>
+                    Invite Team
+                </a>
+                <% } %>
+            </h2>
+            <ul class="list-group">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <% include ../base/footer %>
