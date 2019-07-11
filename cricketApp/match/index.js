@@ -5,7 +5,7 @@ const db = require('../database');
 const router = Router();
 
 const getMatches = async (teamId) => {
-    return await db.sequelize.query("SELECT * FROM `matches` WHERE teamA = " + teamId + " or teamB = " + teamId + " and status != 0", { type: db.sequelize.QueryTypes.SELECT })
+    return await db.sequelize.query("SELECT matches.id as id, t1.name as teamAname, t2.name as teamBname FROM `matches` INNER JOIN `teams` as t1 on t1.id = matches.teamA INNER JOIN `teams` as t2 on t2.id = matches.teamB WHERE teamA = " + teamId + " or teamB = " + teamId + " and status != 0", { type: db.sequelize.QueryTypes.SELECT })
 }
 
 router.get('/', isLoggedIn, async (req, res) => {

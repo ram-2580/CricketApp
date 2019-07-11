@@ -27,7 +27,7 @@
 
         <div class="container">
             <h2 class="border-bottom px-2 py-3 mb-3">
-                Matchs
+                Matches
                 <% if (isCaptain) { %>
                 <a class="btn btn-primary float-right text-white" type="button" data-toggle="modal"
                     data-target="#invite-team-model" onClick=getTeamForMatching()>
@@ -36,11 +36,13 @@
                 <% } %>
             </h2>
             <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                <% matches.forEach( match => { %>
+                <li class="list-group-item">
+                    <a href="manage-team/<%= match.id %>">
+                        <%= match.teamAname %> Vs <%= match.teamBname %>
+                    </a>
+                </li>
+                <%}) %>
             </ul>
         </div>
     </div>
