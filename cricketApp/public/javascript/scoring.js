@@ -45,15 +45,68 @@ class Example extends React.Component {
                         <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">3</button></div>
                         <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">4</button></div>
                         <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">6</button></div>
-                        <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">OUT</button></div>
+                        <div className="col">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block " data-toggle="dropdown">OUT</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">BOLD</a>
+                                    <a class="dropdown-item" href="#">RUN-OUT</a>
+                                    <a class="dropdown-item" href="#">STUMPED</a>
+                                    <a class="dropdown-item" href="#">CAUGHT</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <br/>
                     <div className="row">
-                        <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">wd</button></div>
-                        <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">Nb</button></div>
-                        <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">BYE</button></div>
-                        <div className="col"><button type="button" class="btn btn-secondary btn-lg btn-block">LB</button></div>
-                    </div>
+                        <div className="col">
+                            <div class="dropdown">
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block " data-toggle="dropdown">Wd</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">0 wd</a>
+                                        <a class="dropdown-item" href="#">1 wd </a>
+                                        <a class="dropdown-item" href="#">2 wd</a>
+                                        <a class="dropdown-item" href="#">3 wd </a>
+                                        <a class="dropdown-item" href="#">4 wd</a>
+                                    </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div class="dropdown">
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block " data-toggle="dropdown">Nb</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">0 Nb</a>
+                                        <a class="dropdown-item" href="#">1 Nb </a>
+                                        <a class="dropdown-item" href="#">2 Nb</a>
+                                        <a class="dropdown-item" href="#">3 Nb </a>
+                                        <a class="dropdown-item" href="#">4 Nb</a>
+                                        <a class="dropdown-item" href="#">6 Nb</a>
+                                    </div>
+                            </div>    
+                        </div>
+                        <div className="col">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block " data-toggle="dropdown">BYE</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">1 B </a>
+                                    <a class="dropdown-item" href="#">2 B</a>
+                                    <a class="dropdown-item" href="#">3 B </a>
+                                    <a class="dropdown-item" href="#">4 B</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block " data-toggle="dropdown">LB</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">1 LB </a>
+                                    <a class="dropdown-item" href="#">2 LB</a>
+                                    <a class="dropdown-item" href="#">3 LB </a>
+                                    <a class="dropdown-item" href="#">4 LB</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             
         )
