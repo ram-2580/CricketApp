@@ -86,7 +86,9 @@ app.use('/team', require('./team'));
 app.use('/match', require('./match'));
 app.use('/follow', require('./follow/route.js'));
 app.use('/chat', require('./chat/route.js'));
-
+app.get('/scoring',(req,res)=>{
+    res.render('scoring/scoring')
+})
 var server = app.listen(3000, function (err) {
 
     if (!err)
