@@ -1,0 +1,40 @@
+<% include ../base/header %>
+
+<div class="row no-gutters">
+    <div class="col-md-2">
+        <%- include('../includes/left-side-nav.ejs', {page: 'match'}) %>
+    </div>
+    <div class="col-md-10 pr-3">
+        <h2 class="mt-4 ml-3 pb-2 border-bottom">Select eleven players for your team.</h2>
+
+        <div class="players-list mx-3 mt-5">
+            <table class="table table-bordered" id="playerSelectionTable" data-tab-match="<%= matchId %>">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Matches</th>
+                        <th scope="col">Runs</th>
+                        <th scope="col">Wickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% teamMembers.map((p, i) => { %>
+                    <tr data-tab-playerId="<%= p.userId %>" onClick="selectPlayer(this)">
+                        <th scope="row"><%= i+1 %></th>
+                        <td class="text-capitalize"><%= p.fname + ' ' + p.lname %></td>
+                        <td><%= p.matchPlayed %></td>
+                        <td><%= p.runs %></td>
+                        <td><%= p.wickets %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+            <button class="mt-2 btn btn-success" onClick="subitSelectionRequest()">Select Player</button>
+        </div>
+
+    </div>
+</div>
+
+<% include ../base/footer %>

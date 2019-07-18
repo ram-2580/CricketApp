@@ -97,7 +97,6 @@ function rejectMatch(e) {
     });
 }
 
-
 var renderNotificationToDOM = (data, status) => {
     R.compose(R.map(appendToDOM('#notifications-menu')), R.map(joinNotificationMarkUp), R.prop("joinTeamNotification"))(data);
     R.compose(R.map(appendToDOM('#notifications-menu')), R.map(matchMakingNotificationMarkUp), R.prop("matchMakingNotification"))(data);
@@ -179,4 +178,38 @@ function getTeamForMatching() {
 function inviteTeamToPlay(id) {
     var inviteTeam = getData('/team/inviteTeam/' + id);
     inviteTeam(console.log);
+}
+
+// Selecting players
+let selection = {
+    matchId: -1,
+    setectedPlayers: []
+}
+
+var formData = new FormData;
+
+formData.append('players', selectPlayer);
+
+function selectPlayer(playerElement) {
+    let player = getAttr('data-tab-playerId', playerElement)
+
+    if (selection.setectedPlayers.includes(player)) {
+        $(playerElement).removeClass("selected")
+        selection.setectedPlayers = selection.setectedPlayers.filter(p => p != player);
+    } else {
+        $(playerElement).addClass("selected")
+        selection.setectedPlayers.push(player);
+    }
+
+    console.log(selection.setectedPlayers);
+}
+
+function subitSelectionRequest() {
+    let matchId = getAttr('data-tab-match', $('#playerSelectionTable'));
+    selection.matchId = matchId;
+    console.log(selection);
+
+    $.post('/match/select/team', { data: JSON.stringify(selection) }, (res) => {
+        console.log(res);
+    });
 }

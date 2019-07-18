@@ -148,6 +148,7 @@ router.get('/invite/:teamId/:id', isLoggedInApi, async (req, res) => {
 
 //Team Invitaion backhand
 router.get('/getTeamsToPlay', isLoggedInApi, async (req, res) => {
+    //Todo correct the error of inviting ourselfs
     const teams = await getTeamToPlayMatch();
     res.send(teams);
 });

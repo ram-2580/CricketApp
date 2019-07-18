@@ -18,11 +18,12 @@ module.exports = (db, Sequelize) => {
         result: {
             type: Sequelize.TEXT
         },
-        status: Sequelize.INTEGER // 0: invited, 1: selecting team etc, 3: playing
+        status: Sequelize.INTEGER, // 0: invited, 1: Accepted invitation, 2: playing,
+        statusTeamA: Sequelize.INTEGER, // 0: still to select team, 1: selected team
+        statusTeamB: Sequelize.INTEGER,
     })
 
     Match.associations = (db) => {
-
     }
 
     return Match

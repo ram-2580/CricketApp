@@ -1,4 +1,3 @@
-
 :root {
     --primary: #007bff;
 }
@@ -61,7 +60,7 @@
     padding: 1rem 1rem;
     padding-right: 2rem;
     margin-bottom: .5rem;
-    
+
 }
 
 .flash-message .close {
@@ -73,12 +72,10 @@
 }
 
 .left-navigation {
-    height: 88vh !important
-    ;
+    height: 88vh !important;
 }
 
-.card {
-}
+.card {}
 
 .card .card-body {
     padding: 1rem 10px;
@@ -100,4 +97,13 @@
 
 .card img {
     object-fit: cover;
+}
+
+#playerSelectionTable .selected {
+    background-color: var(--success) !important;
+    color: white;
+}
+
+#playerSelectionTable tr {
+    cursor: pointer;
 }

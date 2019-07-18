@@ -1,36 +1,32 @@
 module.exports = (db, Sequelize) => {
     const Bowling = db.define('Bowling', {
-        team:{
-            type:Sequelize.TEXT
+        wickets: {
+            type: Sequelize.INTEGER
         },
-        name:{
-            type:Sequelize.TEXT
+        overs: {
+            type: Sequelize.INTEGER
         },
-        wickets:{
-            type:Sequelize.INTEGER
+        runs: {
+            type: Sequelize.INTEGER
         },
-        overs:{
-            type:Sequelize.INTEGER
+        maidens: {
+            type: Sequelize.INTEGER
         },
-        runs:{
-            type:Sequelize.INTEGER
+        sixes: {
+            type: Sequelize.INTEGER
         },
-        maidens:{
-            type:Sequelize.INTEGER
+        fours: {
+            type: Sequelize.INTEGER
         },
-        sixes:{
-            type:Sequelize.INTEGER
-        },
-        fours:{
-            type:Sequelize.INTEGER
-        },         
-        dots:{
-            type:Sequelize.INTEGER
+        dots: {
+            type: Sequelize.INTEGER
         },
     })
 
     Bowling.associations = (db) => {
-       db.Match.hasMany(db.Bowling)
+        db.Match.hasMany(db.Bowling)
+        db.User.hasMany(db.Bowling)
+        db.Team.hasMany(db.Bowling)
     }
 
     return Bowling
